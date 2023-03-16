@@ -1,0 +1,22 @@
+.register__submit-button {
+    width: 100%;
+    min-height: 50px;
+    background-color: #fff;
+    border: none;
+    color: #000;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    border-radius: 2px;
+    opacity: 1;
+    transition: opacity .2s linear;
+    box-shadow: none;
+    padding: 0;
+    margin: 216px auto 0;
+}
+
+.register__submit-button:hover {
+    opacity: .85;
+    cursor: pointer;
+}

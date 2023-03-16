@@ -1,0 +1,15 @@
+.header__login-button {
+    border: none;
+    background-color: transparent;
+    color: #A9A9A9;
+    padding: 0;
+    opacity: 1;
+    transition: opacity .2s linear;
+    box-shadow: none;
+    margin: 0 0 0 24px;
+}
+
+.header__login-button:hover {
+    opacity: .6;
+    cursor: pointer;
+}
