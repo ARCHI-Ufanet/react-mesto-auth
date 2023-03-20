@@ -2,7 +2,7 @@
 
 ### Обзор
 
-* О [проекте](https://archi-ufanet.github.io/mesto-react-auth)
+* О [проекте](https://archi-ufanet.github.io/react-mesto-auth)
 * Планы по доработке
 
 **О проекте**
