@@ -13,7 +13,6 @@ export default function PopupWithConfirm({isOpen, onClose, onConFirm }) {
             onClose = {onClose}
             buttonSubmitText = 'Да'
             onSubmit = {handleSubmit}
-        >
-        </PopupWithForm>
+        />
     );
 }

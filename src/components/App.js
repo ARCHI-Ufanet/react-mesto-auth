@@ -30,6 +30,7 @@ export default function App() {
   const [headerUserEmail, setHeaderUserEmail] = useState('');
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isRegStatusOk, setIsRegStatusOk] = useState(false);
+  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || isImagePopupOpen
 
   function handleInfoTooltip() {setIsInfoTooltipOpen(true)};
   function handleEditProfileClick() {setIsEditProfilePopupOpen(true)};
@@ -66,12 +67,26 @@ export default function App() {
           if(data) {
             setHeaderUserEmail(data.data.email);
             setLoggedIn(true);
-            navigate('/', {replace: true});
+            navigate('/mesto-react-auth', {replace: true});
           }
         })
         .catch(err => console.log(err));
     }
   }, []);
+
+  useEffect(() => {
+    function closeByEscape(evt) {
+      if(evt.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+    if(isOpen) {
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+    }
+  }, [isOpen]) 
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -144,7 +159,7 @@ export default function App() {
       handleInfoTooltip();
     })
     .then(() => {
-        navigate('/sign-in', {replace: true});
+        navigate('/mesto-react-auth/sign-in', {replace: true});
     })
     .catch((err) => {
       setIsRegStatusOk(false);
@@ -158,7 +173,7 @@ export default function App() {
         if (data.token) {
           setHeaderUserEmail(email);
             setLoggedIn(true);
-            navigate('/', {replace: true});
+            navigate('/mesto-react-auth', {replace: true});
             localStorage.setItem('jwt', data.token);
         }
       })
@@ -172,14 +187,14 @@ export default function App() {
     localStorage.removeItem('jwt');
     setHeaderUserEmail('');
     setLoggedIn(false);
-    navigate('/sign-in', {replace: true});
+    navigate('/mesto-react-auth/sign-in', {replace: true});
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header userInfo={headerUserEmail} loggedIn={loggedIn} logout={handleLogout}/>
         <Routes>
-          <Route path="/"
+          <Route path="/mesto-react-auth"
             element={
               <ProtectedRoute
                 exact
@@ -195,9 +210,9 @@ export default function App() {
               />
             }
           />  
-          <Route path="/sign-up" element={<Register handleRegister={handleRegister} />}/>  
-          <Route path="/sign-in" element={<Login handleLogin={handleLogin} />}/>
-          <Route element={loggedIn ? <Navigate to="/" replace/> : <Navigate to="/sign-in" replace/>}/>
+          <Route path="/mesto-react-auth/sign-up" element={<Register handleRegister={handleRegister} />}/>  
+          <Route path="/mesto-react-auth/sign-in" element={<Login handleLogin={handleLogin} />}/>
+          <Route element={loggedIn ? <Navigate to="/mesto-react-auth" replace/> : <Navigate to="/mesto-react-auth/sign-in" replace/>}/>
         </Routes>
         <Footer />
       <PopupEditProfile

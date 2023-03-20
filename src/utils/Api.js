@@ -9,8 +9,11 @@ class Api {
             return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status}`);
-    }
-    
+    };
+
+    _request(url, {options}) {
+        return fetch(url, {options}).then(this._checkRes);
+    };
 
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {

@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link } from 'react-router-dom';
 
 export default function Register({handleRegister}) {
-    const navigate = useNavigate();
     const [formValue, setFormValue] = useState({
         email: '',
         password: '',
@@ -50,9 +49,9 @@ export default function Register({handleRegister}) {
                     onChange={handleChange}
                 />
                 <span className="register__eror" id="link-error"></span>
-                <button type="submit" onSubmit={handleSubmit} className="register__submit-button">Зарегистрироваться</button>
+                <button type="submit" className="register__submit-button">Зарегистрироваться</button>
             </form>
-            <p className="register__option">Уже зарегистрированы? <Link to="/sign-in" className="register__login-link">Войти</Link></p>
+            <p className="register__option">Уже зарегистрированы? <Link to="/mesto-react-auth/sign-in" className="register__login-link">Войти</Link></p>
         </div>
     );
 };
