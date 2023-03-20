@@ -67,7 +67,7 @@ export default function App() {
           if(data) {
             setHeaderUserEmail(data.data.email);
             setLoggedIn(true);
-            navigate('/mesto-react-auth', {replace: true});
+            navigate('/', {replace: true});
           }
         })
         .catch(err => console.log(err));
@@ -159,7 +159,7 @@ export default function App() {
       handleInfoTooltip();
     })
     .then(() => {
-        navigate('/mesto-react-auth/sign-in', {replace: true});
+        navigate('/sign-in', {replace: true});
     })
     .catch((err) => {
       setIsRegStatusOk(false);
@@ -172,9 +172,9 @@ export default function App() {
       .then((data) => {
         if (data.token) {
           setHeaderUserEmail(email);
-            setLoggedIn(true);
-            navigate('/mesto-react-auth', {replace: true});
-            localStorage.setItem('jwt', data.token);
+          setLoggedIn(true);
+          navigate('/', {replace: true});
+          localStorage.setItem('jwt', data.token);
         }
       })
       .catch((err) => {
@@ -187,14 +187,14 @@ export default function App() {
     localStorage.removeItem('jwt');
     setHeaderUserEmail('');
     setLoggedIn(false);
-    navigate('/mesto-react-auth/sign-in', {replace: true});
+    navigate('/sign-in', {replace: true});
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header userInfo={headerUserEmail} loggedIn={loggedIn} logout={handleLogout}/>
         <Routes>
-          <Route path="/mesto-react-auth"
+          <Route path="/"
             element={
               <ProtectedRoute
                 exact
@@ -210,9 +210,9 @@ export default function App() {
               />
             }
           />  
-          <Route path="/mesto-react-auth/sign-up" element={<Register handleRegister={handleRegister} />}/>  
-          <Route path="/mesto-react-auth/sign-in" element={<Login handleLogin={handleLogin} />}/>
-          <Route element={loggedIn ? <Navigate to="/mesto-react-auth" replace/> : <Navigate to="/mesto-react-auth/sign-in" replace/>}/>
+          <Route path="/sign-up" element={<Register handleRegister={handleRegister} />}/>  
+          <Route path="/sign-in" element={<Login handleLogin={handleLogin} />}/>
+          <Route element={loggedIn ? <Navigate to="/" replace/> : <Navigate to="/sign-in" replace/>}/>
         </Routes>
         <Footer />
       <PopupEditProfile
